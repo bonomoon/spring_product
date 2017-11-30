@@ -1,4 +1,4 @@
-### Eclipse ###
+﻿# Eclipse
 *.pydevproject
 .metadata
 .gradle
@@ -30,7 +30,7 @@ local.properties
 # TeXlipse plugin
 .texlipse
 
-### Maven ###
+# Maven
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -38,7 +38,7 @@ pom.xml.versionsBackup
 pom.xml.next
 release.properties
 
-### Java ###
+# Java
 *.class
 
 # Mobile Tools for Java (J2ME)
