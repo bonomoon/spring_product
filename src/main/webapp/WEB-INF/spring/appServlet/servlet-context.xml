@@ -23,6 +23,4 @@
 	
 	<context:component-scan base-package="kr.ac.jbnu" />
 	
-	
-	
 </beans:beans>
