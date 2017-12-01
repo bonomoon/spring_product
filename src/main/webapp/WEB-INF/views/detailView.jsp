@@ -286,7 +286,7 @@
 												function() {
 													$
 															.ajax({
-																url : "${pageContext.request.contextPath}/detail",
+																url : "${pageContext.request.contextPath}/insertCartProduct",
 																type : "post",
 																data : {
 																	product : "${product.code}"
