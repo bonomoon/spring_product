@@ -18,6 +18,10 @@ public class CartDaoImpl implements CartDao {
 	@Autowired 
 	private ProductDao productDao;
 	
+	public CartDaoImpl(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	
 	@Override
 	public List<Product> queryCart(String userid) {
 		// TODO Auto-generated method stub

@@ -77,6 +77,13 @@
 		</constructor-arg>
 	</bean>
 	
+	<bean id="cartDao" class="kr.ac.jbnu.dao.CartDaoImpl">
+   		<!-- 생성자 주입 -->
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
 	<context:component-scan base-package="kr.ac.jbnu" />
 	
 </beans>
