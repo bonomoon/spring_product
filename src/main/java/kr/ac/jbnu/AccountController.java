@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kr.ac.jbnu.dao.UserAccountDao;
 import kr.ac.jbnu.model.UserAccount;
@@ -33,6 +34,7 @@ import kr.ac.jbnu.util.MyUtils;
  * Handles requests for the application home page.
  */
 @Controller
+@SessionAttributes("loginedUser")
 public class AccountController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
@@ -104,7 +106,7 @@ public class AccountController {
 		logger.info("LoginView", locale);
 
 		HttpSession session = request.getSession();
-		 UserAccount loginedUser = MyUtils.getLoginedUser(session);
+		UserAccount loginedUser = MyUtils.getLoginedUser(session);
 		try {
 			// Not logged in
 			if (loginedUser == null) {
@@ -175,6 +177,7 @@ public class AccountController {
 			System.out.println("로그인 성공");
 			HttpSession session = request.getSession();
 			MyUtils.storeLoginedUser(session, user);
+			model.addAttribute("loginedUser", user);
 			
 			// If user checked "Remember me".
 			if (remember) {

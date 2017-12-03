@@ -82,12 +82,12 @@
                                     </thead>
                                     <tbody>
                                     	<c:set var="total" value="0"/>
-                                    	<c:forEach items="${cartList}" var="product">
+                                    	<c:forEach items="${cartList}" var="product" varStatus="status">
                                     		<tr>
                                     			<td/><td/><td/>
                                     			<td>
                                     				<a href="detail?product=${product.code}">
-                                                    	<img src="${product.image}" alt="White Blouse Armani">
+                                                    	<img src="${product.image}">
                                                		</a>
                                                	</td>
                                                	<td><a href="detail?product=${product.code}">${product.name}</a>
@@ -95,7 +95,7 @@
                                                	<td>${product.price}</td>
 <!--                                                	<td>$0.00</td> -->
 <%--                                                	<td><c:out value="${product.price * 2}"></c:out></td> --%>
-                                               	<td><a href="deleteCartProduct?product=${product.code}"><i class="fa fa-trash-o"></i></a>
+                                               	<td><a href="deleteCartProduct?cartid=${cartidList[status.index]}"><i class="fa fa-trash-o"></i></a>
                                             	</td>
                                             </tr>
                                             <c:set var="total" value="${total+product.price}"/>

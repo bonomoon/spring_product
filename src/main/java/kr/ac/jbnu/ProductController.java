@@ -1,13 +1,7 @@
 package kr.ac.jbnu;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +18,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kr.ac.jbnu.dao.ProductDao;
 import kr.ac.jbnu.model.Product;
+import kr.ac.jbnu.model.UserAccount;
+import kr.ac.jbnu.util.MyUtils;
 
 /**
  * Handles requests for the application home page.
@@ -45,20 +40,16 @@ public class ProductController {
 			Locale locale, Model model, 
 			HttpServletRequest request, HttpServletResponse response) {
 		logger.info("detailView!! productCode : " + productCode, locale);
+				
+		HttpSession session = request.getSession();
+		UserAccount loginedUser = MyUtils.getLoginedUser(session);
 		
-//		Connection conn = MyUtils.getStoredConnection(request);
-//		String productCode = request.getParameter("product");
-//		
-//		HttpSession session = request.getSession();
-//		UserAccount loginedUser = MyUtils.getLoginedUser(session);
-//		
-//		if(loginedUser == null) {
-//			request.setAttribute("sessionflag", false);
-//		} else {
-//			request.setAttribute("sessionflag", true);
-//		}
-//		
-		String errorString = null;
+		if(loginedUser == null) {
+			model.addAttribute("sessionflag", false);
+		} else {
+			model.addAttribute("sessionflag", true);
+		}
+		
 		Product product = productDao.findProduct(productCode);
 		model.addAttribute("product", product);
 //		try {
