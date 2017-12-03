@@ -59,7 +59,7 @@ public class ProductController {
 //		}
 //		
 		String errorString = null;
-		Product product = productDao.findProduct(productCode).get(0);
+		Product product = productDao.findProduct(productCode);
 		model.addAttribute("product", product);
 //		try {
 //			product = DBUtils.findProduct(conn, productCode);
