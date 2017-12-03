@@ -30,7 +30,7 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	@Transactional
 	public Board findBoardById(String board_id) {
-		Query query = sessionFactory.getCurrentSession().createQuery("from board where board_id=:id");
+		Query query = sessionFactory.getCurrentSession().createQuery("from Board where id=:id");
 		query.setParameter("id", board_id);
 
 		Board board = (Board) query.uniqueResult();
@@ -41,7 +41,7 @@ public class BoardDaoImpl implements BoardDao {
 	@Transactional
 	public void updateBoardHits(Board board) {
 		Query query = sessionFactory.getCurrentSession()
-				.createQuery("update board set board_hits = :board_hits" + " where board_id = :board_id");
+				.createQuery("update Board set hits = :board_hits" + " where id = :board_id");
 
 		int hit = Integer.parseInt(board.getHits()) + 1;
 

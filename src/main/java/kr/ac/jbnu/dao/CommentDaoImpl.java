@@ -17,7 +17,7 @@ public class CommentDaoImpl implements CommentDao{
 
 	@Override
 	public List<Comment> findCommentById(String board_id) {
-		Query query = sessionFactory.getCurrentSession().createQuery("from comment where board_id=:id");
+		Query query = sessionFactory.getCurrentSession().createQuery("from Comment where board_id=:id");
 		query.setParameter("id", board_id);
 
 		@SuppressWarnings("unchecked")
