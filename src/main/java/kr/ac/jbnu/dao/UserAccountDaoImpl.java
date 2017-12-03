@@ -23,9 +23,9 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	public UserAccount findUser(String userEmail, String password) {
 		// TODO Auto-generated method stub
 		Query query = sessionFactory.getCurrentSession()
-				.createQuery("from UserAccount as userAccount "
-						+ "where userAccount.user_email=:user_email "
-						+ "and userAccount.user_password=:user_password");
+				.createQuery("from UserAccount "
+						+ "where email=:user_email "
+						+ "and password=:user_password");
 		query.setParameter("user_email", userEmail);
 		query.setParameter("user_password", password);
 		
@@ -40,8 +40,8 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	public UserAccount findUser(String userName) {
 		// TODO Auto-generated method stub
 		Query query = sessionFactory.getCurrentSession()
-				.createQuery("from UserAccount as userAccount "
-						+ "where userAccount.user_name=:user_name");
+				.createQuery("from UserAccount "
+						+ "where userName=:user_name");
 		query.setParameter("user_name", userName);
 		
 		@SuppressWarnings("unchecked")
@@ -55,14 +55,15 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	public boolean isBlockedUser(String userEmail) {
 		// TODO Auto-generated method stub
 		Query query = sessionFactory.getCurrentSession()
-				.createQuery("select userAccount.Is_Blocked from UserAccount as userAccount"
-						+ "where userAccount.user_email=:user_email");
+				.createQuery("from UserAccount "
+						+ "where email=:user_email");
 		query.setParameter("user_email", userEmail);
 		
 		@SuppressWarnings("unchecked")
 		List list = query.list();
+		UserAccount item = (UserAccount)list.get(0);
 		
-		return (boolean)list.get(0);
+		return item.getBlocked();
 	}
 
 	@Override
@@ -70,7 +71,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	public void blockUserAccount(String userId) {
 		// TODO Auto-generated method stub
 		Query query = sessionFactory.getCurrentSession()
-				.createQuery("update UserAccount set Is_Blocked=:Is_Blocked where user_id=:user_id");
+				.createQuery("update UserAccount set blocked=:Is_Blocked where id=:user_id");
 		query.setParameter("Is_Blocked", true);
 		query.setParameter("user_id", userId);
 		
@@ -103,8 +104,8 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	public boolean checkUserAccount(String userId) {
 		// TODO Auto-generated method stub
 		Query query = sessionFactory.getCurrentSession()
-				.createQuery("from UserAccount as userAccount "
-						+ "where userAccount.user_id=:user_id");
+				.createQuery("from UserAccount "
+						+ "where id=:user_id");
 		query.setParameter("user_id", userId);
 		
 		@SuppressWarnings("unchecked")
@@ -120,10 +121,10 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	public void updateUserAccount(UserAccount userAccount) {
 		// TODO Auto-generated method stub
 		Query query = sessionFactory.getCurrentSession()
-				.createQuery("update UserAccount set user_major=:user_major, "
-						+ "user_name=:user_name, "
-						+ "user_password=:user_password "
-						+ "where user_id=:user_id");
+				.createQuery("update UserAccount set major=:user_major, "
+						+ "userName=:user_name, "
+						+ "password=:user_password "
+						+ "where id=:user_id");
 		query.setParameter("user_major", userAccount.getMajor());
 		query.setParameter("user_name", userAccount.getUserName());
 		query.setParameter("user_password", userAccount.getPassword());

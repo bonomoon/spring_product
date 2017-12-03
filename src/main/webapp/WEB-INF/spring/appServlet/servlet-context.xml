@@ -56,6 +56,27 @@
 		</constructor-arg>
 	</bean>
 	
+	<bean id="boardDao" class="kr.ac.jbnu.dao.BoardDaoImpl">
+   		<!-- 생성자 주입 -->
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="commentDao" class="kr.ac.jbnu.dao.CommentDaoImpl">
+   		<!-- 생성자 주입 -->
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
+	<bean id="userAccountDao" class="kr.ac.jbnu.dao.UserAccountDaoImpl">
+   		<!-- 생성자 주입 -->
+		<constructor-arg>
+			<ref bean="sessionFactory" />
+		</constructor-arg>
+	</bean>
+	
 	<context:component-scan base-package="kr.ac.jbnu" />
 	
 </beans>
