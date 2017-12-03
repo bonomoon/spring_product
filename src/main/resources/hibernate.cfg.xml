@@ -16,5 +16,6 @@
     <mapping resource="board.hbm.xml"></mapping>
     <mapping resource="comment.hbm.xml"></mapping>
     <mapping resource="userAccount.hbm.xml"></mapping>
+    <mapping resource="cart.hbm.xml"></mapping>
   </session-factory>
 </hibernate-configuration>

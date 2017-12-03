@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- 모델쪽의 Board 클래스와 테이블 board를 매핑한다. -->
+<hibernate-mapping package="kr.ac.jbnu.model">
+	<class name="Cart" table="cart">
+		<id name="cart_id" column="cart_id" />
+		<property name="cart_user" column="cart_user" />
+		<property name="cart_item" column="cart_item" />
+	</class>
+</hibernate-mapping>
