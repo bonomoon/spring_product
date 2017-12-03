@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Locale;
 
 import javax.servlet.RequestDispatcher;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kr.ac.jbnu.dao.UserAccountDao;
 import kr.ac.jbnu.model.UserAccount;
@@ -45,6 +47,38 @@ public class AccountController {
 		logger.info("userRegisterView", locale);
 
 		return "userRegisterView";
+	}
+	
+	@RequestMapping(value = "/user_register", method = RequestMethod.POST)
+	public void registerPost(@RequestParam("id") String id, @RequestParam("name") String name,
+			@RequestParam("major") String major, @RequestParam("email") String email,
+			@RequestParam("password") String password, Locale locale, Model model,
+			HttpServletRequest request, HttpServletResponse response) {
+		logger.info("userRegisterPost", locale);
+
+		String errorString = null;
+		
+		if (id.equals("") || name.equals("") || major.equals("") || email.equals("") || password.equals("")) {
+			errorString = "회원 가입 요청 중 누락된 정보가 있습니다.";
+		}
+		
+		UserAccount user = new UserAccount();
+		
+		if(userAccountDao.isBlockedUser(email)) {
+			errorString = "정지당한 계정입니다.";
+			response.setStatus(response.SC_FORBIDDEN);
+			return;
+		}
+		
+		user.setId(id);
+		user.setUserName(name);
+		user.setMajor(major);
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setIsAdmin(false);
+		user.setBlocked(false);
+		
+		userAccountDao.addUserAccount(user);
 	}
 
 	@RequestMapping(value = "/user_edit", method = RequestMethod.GET)
@@ -104,14 +138,18 @@ public class AccountController {
 		logger.info("LoginView", locale);
 
 		HttpSession session = request.getSession();
-		 UserAccount loginedUser = MyUtils.getLoginedUser(session);
+		UserAccount loginedUser = MyUtils.getLoginedUser(session);
+		
+		response.setContentType("text/plain");
+		
 		try {
 			// Not logged in
 			if (loginedUser == null) {
 				response.getWriter().write("not logged in");
 				return;
+			} else {
+				response.getWriter().write("logged in");
 			}
-			response.getWriter().write("logged in");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -203,12 +241,15 @@ public class AccountController {
 //			= this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
 ////
 		}
-		try {
-			response.getWriter().write("isNotAdmin");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public void logout(Locale locale, Model model, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("LogoutView", locale);
+
+		HttpSession session = request.getSession();
+		session.invalidate();
+		MyUtils.deleteUserCookie(response);
 	}
 
 	private void notFoundHandler(HttpServletResponse response) throws IOException {

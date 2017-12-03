@@ -61,6 +61,8 @@ public class UserAccountDaoImpl implements UserAccountDao {
 		
 		@SuppressWarnings("unchecked")
 		List list = query.list();
+		if(list.isEmpty())
+			return false;
 		UserAccount item = (UserAccount)list.get(0);
 		
 		return item.getBlocked();
@@ -97,9 +99,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	public void addUserAccount(UserAccount user) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		session.beginTransaction();
 		session.save(user);
-		session.getTransaction().commit();
 	}
 
 	@Override
@@ -114,6 +114,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	}
 
 	@Override
+	@Transactional
 	public boolean checkUserAccount(String userId) {
 		// TODO Auto-generated method stub
 		Query query = sessionFactory.getCurrentSession()
@@ -131,6 +132,7 @@ public class UserAccountDaoImpl implements UserAccountDao {
 	}
 
 	@Override
+	@Transactional
 	public void updateUserAccount(UserAccount userAccount) {
 		// TODO Auto-generated method stub
 		Query query = sessionFactory.getCurrentSession()
