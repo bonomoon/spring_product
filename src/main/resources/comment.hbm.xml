@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- 모델쪽의 Comment 클래스와 테이블 comment를 매핑한다. -->
+<hibernate-mapping package="kr.ac.jbnu.model">
+	<class name="Comment" table="comment">
+		<id name="id" column="comment_id" />
+		<property name="author" column="comment_author" />
+		<property name="date" column="comment_date" />
+		<property name="contents" column="comment_contents" />
+		<property name="board_id" column="board_id" />
+	</class>
+</hibernate-mapping>
