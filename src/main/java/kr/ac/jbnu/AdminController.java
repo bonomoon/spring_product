@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.ac.jbnu.dao.ProductDao;
 import kr.ac.jbnu.dao.UserAccountDao;
@@ -43,17 +44,19 @@ public class AdminController  {
 		
 		List<UserAccount> list = userAccountDao.queryUserAccount();
 		model.addAttribute("userlist", list);
-		
+
 		return "admin/userManageView";
 	}
 	
-//	@RequestMapping(value = {"/", "/user_manage"}, method = RequestMethod.GET)		
-//	public String blockUser(Locale locale, Model model, HttpServletRequest request, HttpServletResponse response) {
-//		logger.info("userManageView", locale);
-//		
-//		
-//		//userAccountDao.blockUserAccount(userEmail);
-//		return "admin/userManageView";
-//	}
-	
+	@RequestMapping(value = "/blockUser", method = RequestMethod.GET)		
+	public String blockUser(Locale locale, Model model, @RequestParam("id") String userId) {
+		logger.info("userManageView", locale);
+		
+		userAccountDao.blockUserAccount(userId);
+		
+		List<UserAccount> list = userAccountDao.queryUserAccount();
+		model.addAttribute("userlist", list);
+		
+		return "admin/userManageView";
+	}
 }

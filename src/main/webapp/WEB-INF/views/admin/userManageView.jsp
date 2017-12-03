@@ -116,7 +116,7 @@
 											<td>${user.userName}</td>
 											<td>${user.email}</td>
 <%-- 											<td><a href="editUserAccount?id=${user.id}">Edit</a></td> --%>
-											<td><a href="blockUserAccount?id=${user.id}"><i class="fa fa-trash-o"></i></a></td>
+											<td><a href="blockUser?id=${user.id}"><i class="fa fa-trash-o"></i></a></td>
 											<td>${user.blocked}</td>
 										</tr>
 									</c:forEach>
