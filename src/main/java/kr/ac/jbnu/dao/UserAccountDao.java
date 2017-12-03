@@ -13,4 +13,5 @@ public interface UserAccountDao {
 	public List<UserAccount> queryUserAccount();
 	public boolean checkUserAccount(String userId);
 	public void updateUserAccount(UserAccount userAccount);
+	void unblockUserAccount(String userId);
 }

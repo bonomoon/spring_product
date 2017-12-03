@@ -65,4 +65,15 @@ public class AdminController  {
 		return "admin/userManageView";
 	}
 
+	@RequestMapping(value = "/unblockUser", method = RequestMethod.GET)		
+	public String unblockUser(Locale locale, Model model, @RequestParam("id") String userId) {
+		logger.info("userManageView", locale);
+		
+		userAccountDao.unblockUserAccount(userId);
+		
+		List<UserAccount> list = userAccountDao.queryUserAccount();
+		model.addAttribute("userlist", list);
+		
+		return "admin/userManageView";
+	}
 }

@@ -81,6 +81,19 @@ public class UserAccountDaoImpl implements UserAccountDao {
 
 	@Override
 	@Transactional
+	public void unblockUserAccount(String userId) {
+		// TODO Auto-generated method stub
+		Query query = sessionFactory.getCurrentSession()
+				.createQuery("update UserAccount set blocked=:Is_Blocked where id=:user_id");
+		query.setParameter("Is_Blocked", false);
+		query.setParameter("user_id", userId);
+		
+		@SuppressWarnings("unchecked")
+		int result = query.executeUpdate();
+	}
+	
+	@Override
+	@Transactional
 	public void addUserAccount(UserAccount user) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
