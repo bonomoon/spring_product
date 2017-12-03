@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- 모델쪽의 Board 클래스와 테이블 board를 매핑한다. -->
+<hibernate-mapping package="kr.ac.jbnu.model">
+	<class name="Board" table="board">
+		<id name="id" column="board_id" />
+		<property name="title" column="board_title" />
+		<property name="author" column="board_author" />
+		<property name="date" column="board_date" />
+		<property name="hits" column="board_hits" />
+		<property name="contents" column="board_contents" />
+	</class>
+</hibernate-mapping>
