@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Locale;
 
 import javax.servlet.RequestDispatcher;
@@ -34,7 +35,6 @@ import kr.ac.jbnu.util.MyUtils;
  * Handles requests for the application home page.
  */
 @Controller
-@SessionAttributes("loginedUser")
 public class AccountController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
@@ -107,13 +107,17 @@ public class AccountController {
 
 		HttpSession session = request.getSession();
 		UserAccount loginedUser = MyUtils.getLoginedUser(session);
+		
+		response.setContentType("text/plain");
+		
 		try {
 			// Not logged in
 			if (loginedUser == null) {
 				response.getWriter().write("not logged in");
 				return;
+			} else {
+				response.getWriter().write("logged in");
 			}
-			response.getWriter().write("logged in");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -177,7 +181,6 @@ public class AccountController {
 			System.out.println("로그인 성공");
 			HttpSession session = request.getSession();
 			MyUtils.storeLoginedUser(session, user);
-			model.addAttribute("loginedUser", user);
 			
 			// If user checked "Remember me".
 			if (remember) {
@@ -206,12 +209,15 @@ public class AccountController {
 //			= this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
 ////
 		}
-		try {
-			response.getWriter().write("isNotAdmin");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public void logout(Locale locale, Model model, HttpServletRequest request, HttpServletResponse response) {
+		logger.info("LogoutView", locale);
+
+		HttpSession session = request.getSession();
+		session.invalidate();
+		MyUtils.deleteUserCookie(response);
 	}
 
 	private void notFoundHandler(HttpServletResponse response) throws IOException {

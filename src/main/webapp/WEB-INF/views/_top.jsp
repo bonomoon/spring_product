@@ -18,10 +18,17 @@
 		
 		//로그인 요청
 		$("#btn-login").on('click', function(e) {
+			var remember;
+			if($("#rememberMe-id").is(":checked")) {
+				remember = "Y";
+			} else {
+				remember = "N";
+			}
+			
 			$.post('${pageContext.request.contextPath}/login', {
 				email : $("#email-modal").val(),
 				password : $("#password-modal").val(),
-				rememberMe : $("#rememberMe-id").val()
+				rememberMe : remember
 			}, function(data) {
 				if(data == "isBlocked") {
 					alert("본 계정은 정지되었습니다. 관리자에게 문의해주세요.")
