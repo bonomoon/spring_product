@@ -10,7 +10,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import kr.ac.jbnu.model.Board;
-import kr.ac.jbnu.model.Product;
 
 public class BoardDaoImpl implements BoardDao {
 	private SessionFactory sessionFactory;
@@ -31,7 +30,7 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	@Transactional
 	public Board findBoardById(String board_id) {
-		Query query = sessionFactory.getCurrentSession().createQuery("from board as board where board.board_id=:id");
+		Query query = sessionFactory.getCurrentSession().createQuery("from board where board_id=:id");
 		query.setParameter("id", board_id);
 
 		Board board = (Board) query.uniqueResult();
