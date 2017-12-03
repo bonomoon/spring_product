@@ -40,7 +40,7 @@ public class HomeController {
 			HttpServletRequest request, HttpServletResponse response) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		List<Product> list = productDao.list();
+		List<Product> list = productDao.queryProduct();
 		model.addAttribute("productList", list);
 //		Connection conn = MyUtils.getStoredConnection(request);
 //		
