@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+        <!-- 모델쪽의 MyEmp 클래스와 테이블 MYEMP를 매핑한다. -->
+<hibernate-mapping package="kr.ac.jbnu.model">
+    <class name="Product" table="PRODUCT">
+       	<id name="code" column="code">
+       	</id>
+       	<property name="name" column="name" />
+       	<property name="price" column="price" />
+       	<property name="brand" column="brand" />
+       	<property name="cpu" column="cpu" />
+       	<property name="graphicCard" column="graphicCard" />
+       	<property name="description" column="description" />
+       	<property name="image" column="image" />
+    </class> 
+</hibernate-mapping>

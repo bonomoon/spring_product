@@ -21,7 +21,7 @@
 			$.post('${pageContext.request.contextPath}/login', {
 				email : $("#email-modal").val(),
 				password : $("#password-modal").val(),
-				rememberMe : $("#rememberMe").val()
+				rememberMe : $("#rememberMe-id").val()
 			}, function(data) {
 				if(data == "isBlocked") {
 					alert("본 계정은 정지되었습니다. 관리자에게 문의해주세요.")

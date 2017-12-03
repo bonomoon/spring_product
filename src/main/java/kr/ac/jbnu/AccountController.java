@@ -7,6 +7,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,6 +39,60 @@ public class AccountController {
 		return "userRegisterView";
 	}
 	
+	@RequestMapping(value = "/user_edit", method = RequestMethod.GET)
+	public String editUserGet(Locale locale, Model model) {
+		logger.info("editUserAccountView!!", locale);
+		
+//		HttpSession session = request.getSession();
+//		UserAccount loginedUser = MyUtils.getLoginedUser(session);
+//		
+//		if(loginedUser == null) {
+//			return "redirect:/user_register";
+//		} else {
+//			return "editUserAccountView";
+//		}
+		
+		return "editUserAccountView";
+	}
+	
+	@RequestMapping(value = "/user_edit", method = RequestMethod.POST)
+	public String editUserPost(Locale locale, Model model,
+			@RequestParam("name") String name,
+			@RequestParam("major") String major,
+			@RequestParam("password") String password) {
+		logger.info("editUserPost!! name : " + name, locale);
+		
+//		Connection conn = MyUtils.getStoredConnection(request);
+//
+//		HttpSession session = request.getSession();
+//		UserAccount loginedUser = MyUtils.getLoginedUser(session);
+//		
+//		String errorString = null;
+//
+//		String name = request.getParameter("name");
+//		String major = request.getParameter("major");
+//		String password = request.getParameter("password");
+//		
+//		UserAccount user = new UserAccount();
+//		user.setId(loginedUser.getId());
+//		user.setUserName(name);
+//		user.setMajor(major);
+//		user.setEmail(loginedUser.getEmail());
+//		user.setPassword(password);
+//		
+//		if (errorString == null) {
+//			try {
+//				DBUtils.updateUserAccount(conn, user);
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//		response.sendRedirect(request.getContextPath() + "/home");
+		
+		return "redirect:/home";
+	}
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void isLoggedin(Locale locale, Model model, HttpServletRequest request, HttpServletResponse response) {
 		logger.info("LoginView", locale);
@@ -61,24 +116,23 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	@ResponseBody
 	public void loginPost(Locale locale, Model model,
-			@RequestBody String email,
-			@RequestBody String password,
-			@RequestBody String rememberMeStr,
+			@RequestParam("email") String email,
+			@RequestParam("password") String password,
+			@RequestParam("rememberMe") String rememberMe,
 			HttpServletRequest request, HttpServletResponse response) {
-		logger.info("loginPost!!", locale);
+		logger.info("loginPost!! email : " + email, locale);
 		
-		boolean remember = "Y".equals(rememberMeStr);
+//		boolean remember = "Y".equals(rememberMe);
 		
 //		UserAccount user = null;
-		boolean hasError = false;
-		String errorString = null;
-
-		if (email == null || password == null || email.length() == 0 || password.length() == 0) {
-			hasError = true;
-			errorString = "Required username and password!";
-		} else {
+//		boolean hasError = false;
+//		String errorString = null;
+//
+//		if (email == null || password == null || email.length() == 0 || password.length() == 0) {
+//			hasError = true;
+//			errorString = "Required username and password!";
+//		} else {
 //			Connection conn = MyUtils.getStoredConnection(request);
 //			
 //			try {
@@ -103,22 +157,22 @@ public class AccountController {
 //				hasError = true;
 //				errorString = e.getMessage();
 //			}
-		}
+//		}
 		// If error, forward to /WEB-INF/views/login.jsp
-		if (hasError) {
-			System.out.println("??????");
-			System.out.println(errorString);
-			try {
-				notFoundHandler(response);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		// If no error
-		// Store user information in Session
-		// And redirect to userInfo page.
-		else {
+//		if (hasError) {
+//			System.out.println("??????");
+//			System.out.println(errorString);
+//			try {
+//				notFoundHandler(response);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//		// If no error
+//		// Store user information in Session
+//		// And redirect to userInfo page.
+//		else {
 //			System.out.println("로그인 성공");
 //			HttpSession session = request.getSession();
 //			MyUtils.storeLoginedUser(session, user);
@@ -149,6 +203,12 @@ public class AccountController {
 ////			RequestDispatcher dispatcher 
 ////			= this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
 //////
+//		}
+		try {
+			response.getWriter().write("isNotAdmin");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
