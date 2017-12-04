@@ -6,7 +6,7 @@ import kr.ac.jbnu.model.Board;
 
 public interface BoardDao {
 	public List<Board> queryBoard();
-	public Board findBoardById(String board_id);
+	public Board findBoardById(int board_id);
 	public void updateBoardHits(Board board);
-	public void addBoard(Board board);
+	public void insertBoard(Board board);
 }

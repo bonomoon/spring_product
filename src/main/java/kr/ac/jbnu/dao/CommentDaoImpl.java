@@ -2,9 +2,11 @@ package kr.ac.jbnu.dao;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.ac.jbnu.model.Comment;
 
@@ -16,9 +18,10 @@ public class CommentDaoImpl implements CommentDao{
 	}
 
 	@Override
-	public List<Comment> findCommentById(String board_id) {
+	@Transactional
+	public List<Comment> findCommentsById(int board_id) {
 		Query query = sessionFactory.getCurrentSession().createQuery("from Comment where board_id=:id");
-		query.setParameter("id", board_id);
+		query.setInteger("id", board_id);
 
 		@SuppressWarnings("unchecked")
 		List<Comment> list = (List<Comment>) query.list();
@@ -26,11 +29,21 @@ public class CommentDaoImpl implements CommentDao{
 	}
 
 	@Override
-	public void addComment(Comment comment) {
-		Session session = sessionFactory.getCurrentSession();
-		session.beginTransaction();
+	public void insertComment(Comment comment) {
+		Session session;
+		
+		System.out.println("???");
+		try {
+			session = sessionFactory.getCurrentSession();
+		} catch (HibernateException e) {
+			session = sessionFactory.openSession();
+		}
+//		session.beginTransaction();
 		session.save(comment);
-		session.getTransaction().commit();		
+		
+		System.out.println("??????");
+
+//		session.getTransaction().commit();		
 	}
 
 }

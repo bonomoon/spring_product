@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,9 +30,9 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	@Transactional
-	public Board findBoardById(String board_id) {
+	public Board findBoardById(int board_id) {
 		Query query = sessionFactory.getCurrentSession().createQuery("from Board where id=:id");
-		query.setParameter("id", board_id);
+		query.setInteger("id", board_id);
 
 		Board board = (Board) query.uniqueResult();
 		return board;
@@ -44,21 +45,36 @@ public class BoardDaoImpl implements BoardDao {
 				.createQuery("update Board set hits = :board_hits" + " where id = :board_id");
 
 		int hit = Integer.parseInt(board.getHits()) + 1;
-
+		
 		query.setParameter("board_hits", String.valueOf(hit));
 		query.setParameter("board_id", board.getId());
-		
+
 		@SuppressWarnings("unused")
 		int result = query.executeUpdate();
 	}
 
 	@Override
-	@Transactional
-	public void addBoard(Board board) {
-		Session session = sessionFactory.getCurrentSession();
-		session.beginTransaction();
-		session.save(board);
-		session.getTransaction().commit();
+	public void insertBoard(Board board) {
+		Session session;
+
+		try {
+			session = sessionFactory.getCurrentSession();
+		} catch (HibernateException e) {
+			session = sessionFactory.openSession();
+		}
+
+//		session.beginTransaction();
+//
+//		try {
+			session.save(board);
+//			session.getTransaction().commit();
+//		} catch (Exception e) {
+//			session.getTransaction().rollback();
+//			throw e;
+//		} finally {
+//			session.close();
+//		}
+
 	}
 
 }

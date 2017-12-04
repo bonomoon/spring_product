@@ -1,17 +1,17 @@
 package kr.ac.jbnu.model;
 
 public class Comment {
-	private String id;
+	private int id;
 	private String author;
 	private String date;
 	private String contents;
 	private String board_id;
 
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
