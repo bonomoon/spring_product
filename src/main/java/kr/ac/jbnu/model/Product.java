@@ -1,7 +1,7 @@
 package kr.ac.jbnu.model;
 
 public class Product {
-	private String code;
+	private int code;
 	private String name;
 	private String price;
 	private String brand;
@@ -23,7 +23,7 @@ public class Product {
 		this.image = image;
 	}
 	
-	public Product(String code, String name, String price, String brand, String cpu, String graphicCard, String description, String image) {
+	public Product(int code, String name, String price, String brand, String cpu, String graphicCard, String description, String image) {
 		this.code = code;
 		this.name = name;
 		this.price = price;
@@ -34,11 +34,11 @@ public class Product {
 		this.image = image;
 	}
 
-	public String getCode() {
+	public int getCode() {
 		return code;
 	}
 	
-	public void setCode(String code) {
+	public void setCode(int code) {
 		this.code = code;
 	}
 	
