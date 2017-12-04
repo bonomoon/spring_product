@@ -29,10 +29,10 @@ public class CommentDaoImpl implements CommentDao{
 	}
 
 	@Override
+	@Transactional
 	public void insertComment(Comment comment) {
 		Session session;
 		
-		System.out.println("???");
 		try {
 			session = sessionFactory.getCurrentSession();
 		} catch (HibernateException e) {
@@ -41,8 +41,6 @@ public class CommentDaoImpl implements CommentDao{
 //		session.beginTransaction();
 		session.save(comment);
 		
-		System.out.println("??????");
-
 //		session.getTransaction().commit();		
 	}
 

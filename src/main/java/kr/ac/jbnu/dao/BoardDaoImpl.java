@@ -54,6 +54,7 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
+	@Transactional
 	public void insertBoard(Board board) {
 		Session session;
 
