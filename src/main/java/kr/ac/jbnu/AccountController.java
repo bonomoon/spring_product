@@ -85,52 +85,30 @@ public class AccountController {
 	public String editUserGet(Locale locale, Model model) {
 		logger.info("editUserAccountView!!", locale);
 
-		// HttpSession session = request.getSession();
-		// UserAccount loginedUser = MyUtils.getLoginedUser(session);
-		//
-		// if(loginedUser == null) {
-		// return "redirect:/user_register";
-		// } else {
-		// return "editUserAccountView";
-		// }
-
 		return "editUserAccountView";
 	}
 
 	@RequestMapping(value = "/user_edit", method = RequestMethod.POST)
 	public String editUserPost(Locale locale, Model model, @RequestParam("name") String name,
-			@RequestParam("major") String major, @RequestParam("password") String password) {
+			@RequestParam("major") String major, @RequestParam("password") String password,
+			HttpServletRequest request) {
 		logger.info("editUserPost!! name : " + name, locale);
 
-		// Connection conn = MyUtils.getStoredConnection(request);
-		//
-		// HttpSession session = request.getSession();
-		// UserAccount loginedUser = MyUtils.getLoginedUser(session);
-		//
-		// String errorString = null;
-		//
-		// String name = request.getParameter("name");
-		// String major = request.getParameter("major");
-		// String password = request.getParameter("password");
-		//
-		// UserAccount user = new UserAccount();
-		// user.setId(loginedUser.getId());
-		// user.setUserName(name);
-		// user.setMajor(major);
-		// user.setEmail(loginedUser.getEmail());
-		// user.setPassword(password);
-		//
-		// if (errorString == null) {
-		// try {
-		// DBUtils.updateUserAccount(conn, user);
-		// } catch (SQLException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// }
-		// response.sendRedirect(request.getContextPath() + "/home");
+		 HttpSession session = request.getSession();
+		 UserAccount loginedUser = MyUtils.getLoginedUser(session);
+		
+		 String errorString = null;
+				
+		 UserAccount user = new UserAccount();
+		 user.setId(loginedUser.getId());
+		 user.setUserName(name);
+		 user.setMajor(major);
+		 user.setEmail(loginedUser.getEmail());
+		 user.setPassword(password);
+		 
+		 userAccountDao.updateUserAccount(user);
 
-		return "redirect:/home";
+		 return "redirect:/home";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -154,8 +132,6 @@ public class AccountController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		// return;
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)

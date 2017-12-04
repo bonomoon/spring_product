@@ -45,7 +45,7 @@ _________________________________________________________ -->
 											<li><a href="${pageContext.request.contextPath}/home?minprice=0&maxprice=200000">20만원 이하</a></li>
 											<li><a href="${pageContext.request.contextPath}/home?minprice=200000&maxprice=400000">20만원~40만원</a></li>
 											<li><a href="${pageContext.request.contextPath}/home?minprice=400000&maxprice=600000">40만원~60만원</a></li>
-											<li><a href="${pageContext.request.contextPath}/home?minprice=600000&maxprice=100000000">60만원 이상</a></li>
+											<li><a href="${pageContext.request.contextPath}/home?minprice=600000&maxprice=10000000">60만원 이상</a></li>
 										</ul>
 									</div>
 									<div class="col-sm-3">

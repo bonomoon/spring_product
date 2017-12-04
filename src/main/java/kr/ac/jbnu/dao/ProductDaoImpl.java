@@ -45,8 +45,8 @@ public class ProductDaoImpl implements ProductDao{
 	public List<Product> querySearchedProduct(String keyword) {
 		// TODO Auto-generated method stub
 		Query query = sessionFactory.getCurrentSession()
-				.createQuery("from Product as product where product.name like '%:name%'");
-		query.setParameter("name", keyword);
+				.createQuery("from Product as product where product.name like :name");
+		query.setParameter("name", "%" + keyword + "%");
 		
 		@SuppressWarnings("unchecked")
 		List<Product> list = (List<Product>)query.list();
@@ -60,8 +60,8 @@ public class ProductDaoImpl implements ProductDao{
 		Query query = sessionFactory.getCurrentSession()
 				.createQuery("from Product as product where product.price>=:minprice and "
 						+ "product.price<=:maxprice");
-		query.setParameter("minprice", minprice);
-		query.setParameter("maxprice", maxprice);
+		query.setInteger("minprice", Integer.parseInt(minprice));
+		query.setInteger("maxprice", Integer.parseInt(maxprice));
 		
 		@SuppressWarnings("unchecked")
 		List<Product> list = (List<Product>)query.list();
