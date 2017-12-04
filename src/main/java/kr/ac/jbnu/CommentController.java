@@ -40,7 +40,6 @@ public class CommentController {
 		if (loginedUser == null) {
 			errorString = "댓글을 남기려면 로그인하세요.";
 			System.out.println(errorString);
-//			response.setStatus(response.SC_NOT_FOUND);
 			try {
 				response.getWriter().write("not logged in");
 			} catch (IOException e) {
@@ -48,11 +47,8 @@ public class CommentController {
 				e.printStackTrace();
 			}
 			return;
-//			return "redirect:/user_register";
-			// response.sendRedirect(request.getContextPath() + "/user_register");
 		}
 
-		System.out.println("DDDDDDDDDDDDDDDDDDDDDDDD");
 		String author = loginedUser.getUserName();
 
 		System.out.println("date : " + date + " contents : " + contents + " board_id : " + board_id
@@ -75,6 +71,5 @@ public class CommentController {
 			e.printStackTrace();
 		}
 		
-//		return "boardDetailView";///board_id=" + board_id;
 	}
 }

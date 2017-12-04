@@ -13,6 +13,7 @@
 				$("#li-logout").removeClass('hidden');
 				$("#li-MyPage").removeClass('hidden');
 				$("#li-edit").removeClass('hidden');
+				$("#li-createproduct").removeClass('hidden');
 			}
 		});
 		
@@ -69,7 +70,7 @@
 			<ul class="menu">
 				<li class="hidden" id="li-login"><a href="#" data-toggle="modal" data-target="#login-modal">로그인</a></li>
 				<li class="hidden" id="li-register"><a href="user_register">회원가입</a></li>
-				<li><a href="createProduct">상품등록</a></li>
+				<li class="hidden" id="li-createproduct"><a href="createProduct">상품등록</a></li>
 				<li class="hidden" id="li-edit"><a href="user_edit">회원정보수정</a>
 				<li class="hidden" id="li-logout"><a href="#">로그아웃</a></li>
 			</ul>
