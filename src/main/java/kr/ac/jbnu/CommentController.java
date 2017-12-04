@@ -1,5 +1,7 @@
 package kr.ac.jbnu;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,7 +28,7 @@ public class CommentController {
 	private CommentDao commentDao;
 	
 	@RequestMapping(value = "/create_comment", method = RequestMethod.POST)
-	public String addComment(Model model, @RequestParam("date") String date, @RequestParam("contents") String contents,
+	public void addComment(Model model, @RequestParam("date") String date, @RequestParam("contents") String contents,
 			@RequestParam("board_id") String board_id, HttpServletRequest request, HttpServletResponse response) {
 		logger.info("CommentCreate!!!");
 		
@@ -39,10 +41,18 @@ public class CommentController {
 			errorString = "댓글을 남기려면 로그인하세요.";
 			System.out.println(errorString);
 //			response.setStatus(response.SC_NOT_FOUND);
-			return "redirect/user_register";
+			try {
+				response.getWriter().write("not logged in");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return;
+//			return "redirect:/user_register";
 			// response.sendRedirect(request.getContextPath() + "/user_register");
 		}
 
+		System.out.println("DDDDDDDDDDDDDDDDDDDDDDDD");
 		String author = loginedUser.getUserName();
 
 		System.out.println("date : " + date + " contents : " + contents + " board_id : " + board_id
@@ -56,6 +66,15 @@ public class CommentController {
 
 		commentDao.insertComment(comment);
 		
-		return "boardDetailView/board_id=" + board_id;
+		model.addAttribute("board_id", board_id);
+		
+		try {
+			response.getWriter().write("logged in");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+//		return "boardDetailView";///board_id=" + board_id;
 	}
 }
