@@ -89,7 +89,15 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/createProduct", method = RequestMethod.GET)
-	public String createProductGet(Model model) {
+	public String createProductGet(Model model, HttpServletRequest request, HttpServletResponse response) {
+		
+		HttpSession session = request.getSession();
+		UserAccount loginedUser = MyUtils.getLoginedUser(session);
+		
+		if(loginedUser == null)
+		{
+			return "redirect:/user_register";
+		}
 		return "createProductView";
 	}
 
