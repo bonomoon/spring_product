@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -134,9 +135,23 @@ public class ProductDaoImpl implements ProductDao{
 	@Transactional
 	public void insertProduct(Product product) {
 		// TODO Auto-generated method stub
-		Session session = sessionFactory.getCurrentSession();
-		session.beginTransaction();
-		session.save(product);
-		session.getTransaction().commit();
+		Session session;
+	      try {
+	         session = sessionFactory.getCurrentSession();
+	      } catch (HibernateException e) {
+	         session = sessionFactory.openSession();
+	      }
+
+//	      session.beginTransaction();
+
+//	      try {
+	         session.save(product);
+//	         session.getTransaction().commit();
+//	      } catch (Exception e) {
+//	         session.getTransaction().rollback();
+//	         throw e;
+//	      } finally {
+//	         session.close();
+//	      }
 	}
 }
