@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.ac.jbnu.dao.ProductDao;
 import kr.ac.jbnu.model.Product;
@@ -36,62 +37,38 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
-	public String home(Locale locale, Model model, 
-			HttpServletRequest request, HttpServletResponse response) {
+	public String home(@RequestParam(value="keyword", required=false) String keyword,
+			@RequestParam(value="minprice", required=false) String minprice,
+			@RequestParam(value="maxprice", required=false) String maxprice,
+			@RequestParam(value="brand", required=false) String brand,
+			@RequestParam(value="cpu", required=false) String cpu,
+			@RequestParam(value="graphic", required=false) String graphic,
+			Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		List<Product> list = productDao.queryProduct();
 		model.addAttribute("productList", list);
-//		Connection conn = MyUtils.getStoredConnection(request);
-//		
-//		String keyword = null;
-//		String minprice = null;
-//		String maxprice = null;
-//		String brand = null;
-//		String cpu = null;
-//		String graphic = null;
-//
-//		if (request.getParameterMap().containsKey("keyword")) {
-//            keyword = request.getParameter("keyword");
-//        }
-//		if(request.getParameterMap().containsKey("minprice")) {
-//        	minprice = request.getParameter("minprice");
-//        }
-//		if(request.getParameterMap().containsKey("maxprice")) {
-//        	maxprice = request.getParameter("maxprice");
-//        }
-//		if(request.getParameterMap().containsKey("brand")) {
-//        	brand = request.getParameter("brand");
-//        }
-//		if(request.getParameterMap().containsKey("cpu")) {
-//        	cpu = request.getParameter("cpu");
-//        }
-//		if(request.getParameterMap().containsKey("graphic")) {
-//        	graphic = request.getParameter("graphic");
-//        }
-//
-//		String errorString = null;
-//		List<Product> list = null;
-//		try {
-//			if(keyword != null)
-//				list = DBUtils.querySearchedProduct(conn, keyword);
-//			else if(minprice != null)
-//				list = DBUtils.queryPriceSearchedProduct(conn, minprice, maxprice);
-//			else if(brand != null)
-//				list = DBUtils.queryBrandSearchedProduct(conn, brand);
-//			else if(cpu != null)
-//				list = DBUtils.queryCpuSearchedProduct(conn, cpu);
-//			else if(graphic != null)
-//				list = DBUtils.queryGraphicSearchedProduct(conn, graphic);
-//			else
-//				list = DBUtils.queryProduct(conn);
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			errorString = e.getMessage();
-//		}
-//		
-//		request.setAttribute("errorString", errorString);
-//		request.setAttribute("productList", list);
+		
+		if(keyword != null) {
+			list = productDao.querySearchedProduct(keyword);
+		}
+		else if(minprice != null && maxprice !=null) {
+			list = productDao.queryPriceSearchedProduct(minprice, maxprice);
+		}
+		else if(brand != null) {
+			System.out.println(brand);
+			list = productDao.queryBrandSearchedProduct(brand);
+		}
+		else if(cpu != null) {
+			list = productDao.queryCpuSearchedProduct(cpu);
+		}
+		else if(graphic != null) {
+			list = productDao.queryGraphicSearchedProduct(graphic);
+		} else {
+			list = productDao.queryProduct();
+		}
+		
+		model.addAttribute("productList", list);
 		
 		return "homeView";
 	}

@@ -3,11 +3,11 @@ package kr.ac.jbnu.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.ac.jbnu.model.Cart;
 import kr.ac.jbnu.model.Product;
@@ -23,15 +23,10 @@ public class CartDaoImpl implements CartDao {
 	}
 	
 	@Override
+	@Transactional
 	public List<Product> queryCart(String userid) {
 		// TODO Auto-generated method stub
-		Session session;
-		
-		try {
-		    session = sessionFactory.getCurrentSession();
-		} catch (HibernateException e) {
-		    session = sessionFactory.openSession();
-		}
+		Session session = sessionFactory.getCurrentSession();
 		Query query = session
 				.createQuery("select cart.cart_item from Cart as cart "
 						+ "where cart_user=:cart_user");
@@ -51,15 +46,10 @@ public class CartDaoImpl implements CartDao {
 	}
 	
 	@Override
+	@Transactional
 	public List<Integer> queryCartId(String userid) {
 		// TODO Auto-generated method stub
-Session session;
-		
-		try {
-		    session = sessionFactory.getCurrentSession();
-		} catch (HibernateException e) {
-		    session = sessionFactory.openSession();
-		}
+		Session session = sessionFactory.getCurrentSession();
 		Query query = session
 				.createQuery("select cart.cart_id from Cart as cart "
 						+ "where cart_user=:cart_user");
@@ -72,32 +62,21 @@ Session session;
 	}
 
 	@Override
+	@Transactional
 	public void insertCart(String userid, String code) {
 		// TODO Auto-generated method stub
 		Cart cart = new Cart(userid, Integer.parseInt(code));
 		
-		Session session;
+		Session session = sessionFactory.getCurrentSession();
 		
-		try {
-		    session = sessionFactory.getCurrentSession();
-		} catch (HibernateException e) {
-		    session = sessionFactory.openSession();
-		}
-		session.beginTransaction();
 		session.save(cart);
-		session.getTransaction().commit();
 	}
 
 	@Override
+	@Transactional
 	public void deleteCart(String cartid) {//String userName, String code) {
 		// TODO Auto-generated method stub
-		Session session;
-		
-		try {
-		    session = sessionFactory.getCurrentSession();
-		} catch (HibernateException e) {
-		    session = sessionFactory.openSession();
-		}
+		Session session = sessionFactory.getCurrentSession();
 		
 //		Query query = session
 //				.createQuery("delete from Cart as cart "

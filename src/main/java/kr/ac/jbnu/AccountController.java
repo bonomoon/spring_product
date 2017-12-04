@@ -48,57 +48,67 @@ public class AccountController {
 
 		return "userRegisterView";
 	}
+	
+	@RequestMapping(value = "/user_register", method = RequestMethod.POST)
+	public void registerPost(@RequestParam("id") String id, @RequestParam("name") String name,
+			@RequestParam("major") String major, @RequestParam("email") String email,
+			@RequestParam("password") String password, Locale locale, Model model,
+			HttpServletRequest request, HttpServletResponse response) {
+		logger.info("userRegisterPost", locale);
+
+		String errorString = null;
+		
+		if (id.equals("") || name.equals("") || major.equals("") || email.equals("") || password.equals("")) {
+			errorString = "회원 가입 요청 중 누락된 정보가 있습니다.";
+		}
+		
+		UserAccount user = new UserAccount();
+		
+		if(userAccountDao.isBlockedUser(email)) {
+			errorString = "정지당한 계정입니다.";
+			response.setStatus(response.SC_FORBIDDEN);
+			return;
+		}
+		
+		user.setId(id);
+		user.setUserName(name);
+		user.setMajor(major);
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setIsAdmin(false);
+		user.setBlocked(false);
+		
+		userAccountDao.addUserAccount(user);
+	}
 
 	@RequestMapping(value = "/user_edit", method = RequestMethod.GET)
 	public String editUserGet(Locale locale, Model model) {
 		logger.info("editUserAccountView!!", locale);
-
-		// HttpSession session = request.getSession();
-		// UserAccount loginedUser = MyUtils.getLoginedUser(session);
-		//
-		// if(loginedUser == null) {
-		// return "redirect:/user_register";
-		// } else {
-		// return "editUserAccountView";
-		// }
 
 		return "editUserAccountView";
 	}
 
 	@RequestMapping(value = "/user_edit", method = RequestMethod.POST)
 	public String editUserPost(Locale locale, Model model, @RequestParam("name") String name,
-			@RequestParam("major") String major, @RequestParam("password") String password) {
+			@RequestParam("major") String major, @RequestParam("password") String password,
+			HttpServletRequest request) {
 		logger.info("editUserPost!! name : " + name, locale);
 
-		// Connection conn = MyUtils.getStoredConnection(request);
-		//
-		// HttpSession session = request.getSession();
-		// UserAccount loginedUser = MyUtils.getLoginedUser(session);
-		//
-		// String errorString = null;
-		//
-		// String name = request.getParameter("name");
-		// String major = request.getParameter("major");
-		// String password = request.getParameter("password");
-		//
-		// UserAccount user = new UserAccount();
-		// user.setId(loginedUser.getId());
-		// user.setUserName(name);
-		// user.setMajor(major);
-		// user.setEmail(loginedUser.getEmail());
-		// user.setPassword(password);
-		//
-		// if (errorString == null) {
-		// try {
-		// DBUtils.updateUserAccount(conn, user);
-		// } catch (SQLException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// }
-		// response.sendRedirect(request.getContextPath() + "/home");
+		 HttpSession session = request.getSession();
+		 UserAccount loginedUser = MyUtils.getLoginedUser(session);
+		
+		 String errorString = null;
+				
+		 UserAccount user = new UserAccount();
+		 user.setId(loginedUser.getId());
+		 user.setUserName(name);
+		 user.setMajor(major);
+		 user.setEmail(loginedUser.getEmail());
+		 user.setPassword(password);
+		 
+		 userAccountDao.updateUserAccount(user);
 
-		return "redirect:/home";
+		 return "redirect:/home";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -122,8 +132,6 @@ public class AccountController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		// return;
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
