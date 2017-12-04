@@ -34,7 +34,7 @@ public class ProductDaoImpl implements ProductDao{
 	public Product findProduct(String productCode) {
 		Query query = sessionFactory.getCurrentSession()
 				.createQuery("from Product as product where product.code=:code");
-		query.setParameter("code", productCode);
+		query.setInteger("code", Integer.parseInt(productCode));
 		
 		@SuppressWarnings("unchecked")
 		List<Product> list = (List<Product>)query.list();
