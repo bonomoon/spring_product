@@ -23,15 +23,15 @@ import kr.ac.jbnu.util.MyUtils;
 @Controller
 public class CommentController {
 	private static final Logger logger = LoggerFactory.getLogger(CommentController.class);
-	
+
 	@Autowired
 	private CommentDao commentDao;
-	
+
 	@RequestMapping(value = "/create_comment", method = RequestMethod.POST)
 	public void addComment(Model model, @RequestParam("date") String date, @RequestParam("contents") String contents,
 			@RequestParam("board_id") String board_id, HttpServletRequest request, HttpServletResponse response) {
 		logger.info("CommentCreate!!!");
-		
+
 		HttpSession session = request.getSession();
 		UserAccount loginedUser = MyUtils.getLoginedUser(session);
 
@@ -51,8 +51,8 @@ public class CommentController {
 
 		String author = loginedUser.getUserName();
 
-		System.out.println("date : " + date + " contents : " + contents + " board_id : " + board_id
-				+ " author : " + author);
+		System.out.println(
+				"date : " + date + " contents : " + contents + " board_id : " + board_id + " author : " + author);
 
 		Comment comment = new Comment();
 		comment.setAuthor(author);
@@ -61,15 +61,15 @@ public class CommentController {
 		comment.setContents(contents);
 
 		commentDao.insertComment(comment);
-		
+
 		model.addAttribute("board_id", board_id);
-		
+
 		try {
 			response.getWriter().write("logged in");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 }

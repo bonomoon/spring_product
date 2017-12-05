@@ -272,18 +272,12 @@
 					contents : $("#comment").val(),
 					board_id : board_id
 				}, function(data, status, jqXHR) {
-				// 			        alert( "\nStatus: " + status);
-				// 					alert("\nStatus: " + jqXHR.status);
 				}).done(function(data, status, jqXHR) {
 					window.location.replace("${pageContext.request.contextPath}/board_detail?board_id=" + board_id);
-					//  				window.location.replace("${pageContext.request.contextPath}/board");
 				}).fail(function(jqXHR) {
 					alert("로그인 후 댓글 작성이 가능합니다.");
 					window.location.replace("${pageContext.request.contextPath}/user_register");
-					// 					alert("실패!");
-					// 					alert("에러메시지" + jqXHR.responseText);
 				}).always(function() {
-				// 				 					alert("항상!");
 				});
 			});
 		});

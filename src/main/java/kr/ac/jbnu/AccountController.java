@@ -48,28 +48,28 @@ public class AccountController {
 
 		return "userRegisterView";
 	}
-	
+
 	@RequestMapping(value = "/user_register", method = RequestMethod.POST)
 	public void registerPost(@RequestParam("id") String id, @RequestParam("name") String name,
 			@RequestParam("major") String major, @RequestParam("email") String email,
-			@RequestParam("password") String password, Locale locale, Model model,
-			HttpServletRequest request, HttpServletResponse response) {
+			@RequestParam("password") String password, Locale locale, Model model, HttpServletRequest request,
+			HttpServletResponse response) {
 		logger.info("userRegisterPost", locale);
 
 		String errorString = null;
-		
+
 		if (id.equals("") || name.equals("") || major.equals("") || email.equals("") || password.equals("")) {
 			errorString = "회원 가입 요청 중 누락된 정보가 있습니다.";
 		}
-		
+
 		UserAccount user = new UserAccount();
-		
-		if(userAccountDao.isBlockedUser(email)) {
+
+		if (userAccountDao.isBlockedUser(email)) {
 			errorString = "정지당한 계정입니다.";
 			response.setStatus(response.SC_FORBIDDEN);
 			return;
 		}
-		
+
 		user.setId(id);
 		user.setUserName(name);
 		user.setMajor(major);
@@ -77,7 +77,7 @@ public class AccountController {
 		user.setPassword(password);
 		user.setIsAdmin(false);
 		user.setBlocked(false);
-		
+
 		userAccountDao.addUserAccount(user);
 	}
 
@@ -94,21 +94,21 @@ public class AccountController {
 			HttpServletRequest request) {
 		logger.info("editUserPost!! name : " + name, locale);
 
-		 HttpSession session = request.getSession();
-		 UserAccount loginedUser = MyUtils.getLoginedUser(session);
-		
-		 String errorString = null;
-				
-		 UserAccount user = new UserAccount();
-		 user.setId(loginedUser.getId());
-		 user.setUserName(name);
-		 user.setMajor(major);
-		 user.setEmail(loginedUser.getEmail());
-		 user.setPassword(password);
-		 
-		 userAccountDao.updateUserAccount(user);
+		HttpSession session = request.getSession();
+		UserAccount loginedUser = MyUtils.getLoginedUser(session);
 
-		 return "redirect:/home";
+		String errorString = null;
+
+		UserAccount user = new UserAccount();
+		user.setId(loginedUser.getId());
+		user.setUserName(name);
+		user.setMajor(major);
+		user.setEmail(loginedUser.getEmail());
+		user.setPassword(password);
+
+		userAccountDao.updateUserAccount(user);
+
+		return "redirect:/home";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -117,9 +117,9 @@ public class AccountController {
 
 		HttpSession session = request.getSession();
 		UserAccount loginedUser = MyUtils.getLoginedUser(session);
-		
+
 		response.setContentType("text/plain");
-		
+
 		try {
 			// Not logged in
 			if (loginedUser == null) {
@@ -135,15 +135,13 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public void loginPost(Locale locale, Model model,
-			@RequestParam("email") String email,
-			@RequestParam("password") String password,
-			@RequestParam("rememberMe") String rememberMe,
+	public void loginPost(Locale locale, Model model, @RequestParam("email") String email,
+			@RequestParam("password") String password, @RequestParam("rememberMe") String rememberMe,
 			HttpServletRequest request, HttpServletResponse response) throws IOException {
 		logger.info("loginPost!! email : " + email, locale);
-		
+
 		boolean remember = "Y".equals(rememberMe);
-		
+
 		UserAccount user = null;
 		boolean hasError = false;
 		String errorString = null;
@@ -152,26 +150,23 @@ public class AccountController {
 			hasError = true;
 			errorString = "Required username and password!";
 		} else {
-//			Connection conn = MyUtils.getStoredConnection(request);
-			
-			//블락당한 계정인지 확인
-			if(userAccountDao.isBlockedUser(email)) {
+
+			// 블락당한 계정인지 확인
+			if (userAccountDao.isBlockedUser(email)) {
 				errorString = "정지당한 계정입니다.";
 				response.setContentType("text/plain");
 				response.getWriter().write("isBlocked");
 				return;
 			}
-			
+
 			// Find the user in the DB.
 			user = userAccountDao.findUser(email, password);
-//				user = DBUtils.findUser(conn, email, password);
-
 			if (user == null) {
 				hasError = true;
 				errorString = "User Name or password invalid";
 			}
 		}
-//		 If error, forward to /WEB-INF/views/login.jsp
+		// If error, forward to /WEB-INF/views/login.jsp
 		if (hasError) {
 			System.out.println(errorString);
 			try {
@@ -181,7 +176,7 @@ public class AccountController {
 				e.printStackTrace();
 			}
 		}
-		
+
 		// If no error
 		// Store user information in Session
 		// And redirect to userInfo page.
@@ -189,7 +184,7 @@ public class AccountController {
 			System.out.println("로그인 성공");
 			HttpSession session = request.getSession();
 			MyUtils.storeLoginedUser(session, user);
-			
+
 			// If user checked "Remember me".
 			if (remember) {
 				MyUtils.storeUserCookie(response, user);
@@ -198,27 +193,20 @@ public class AccountController {
 			else {
 				MyUtils.deleteUserCookie(response);
 			}
-			
+
 			response.setContentType("text/plain");
 
-			if(user.getIsAdmin()) {
+			if (user.getIsAdmin()) {
 				response.getWriter().write("isAdmin");
-//				response.sendRedirect(request.getContextPath() + "/admin_home");
-				//가고싶은 페이지로 Redirect 하면 됨
+				// 가고싶은 페이지로 Redirect 하면 됨
 				return;
 			} else {
-//				response.sendRedirect(request.getContextPath() + "/home");
 				response.getWriter().write("isNotAdmin");
 				return;
 			}
-
-			// Redirect to userInfo page.
-//			RequestDispatcher dispatcher 
-//			= this.getServletContext().getRequestDispatcher("/WEB-INF/views/loginView.jsp");
-////
 		}
 	}
-	
+
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public void logout(Locale locale, Model model, HttpServletRequest request, HttpServletResponse response) {
 		logger.info("LogoutView", locale);

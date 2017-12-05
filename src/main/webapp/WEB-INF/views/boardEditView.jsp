@@ -257,8 +257,6 @@
 				date : datetime,
 				contents : EditorData,
 			}, function(data, status, jqXHR) {
-			// 			        alert( "\nStatus: " + status);
-			// 			        alert( "\nStatus: " + jqXHR.status);
 			}).done(function() {
 				alert("글 등록이 완료되었습니다.");
  				window.location.replace("${pageContext.request.contextPath}/board");
@@ -266,7 +264,6 @@
 				alert("실패!");
 				alert("에러메시지" + jqXHR.responseText);
 			}).always(function() {
-			// 					alert("항상!");
 			});
 		});
 	});

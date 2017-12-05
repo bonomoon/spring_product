@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.ac.jbnu.model.Comment;
 
-public class CommentDaoImpl implements CommentDao{
+public class CommentDaoImpl implements CommentDao {
 	private SessionFactory sessionFactory;
-	
+
 	public CommentDaoImpl(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -32,16 +32,14 @@ public class CommentDaoImpl implements CommentDao{
 	@Transactional
 	public void insertComment(Comment comment) {
 		Session session;
-		
+
 		try {
 			session = sessionFactory.getCurrentSession();
 		} catch (HibernateException e) {
 			session = sessionFactory.openSession();
 		}
-//		session.beginTransaction();
 		session.save(comment);
-		
-//		session.getTransaction().commit();		
+
 	}
 
 }

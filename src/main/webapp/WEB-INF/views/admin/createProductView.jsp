@@ -115,37 +115,6 @@
 $(document)
 .ready(
     function() {
-//         $("#form_createProduct").on('submit', function(e) {
-//             $.post('${pageContext.request.contextPath}/createProduct', {
-//                     name: $("#name").val(),
-//                     price: $("#price").val(),
-//                     brand: $("#brand").val(),
-//                     cpu: $("#cpu").val(),
-//                     graphicCard: $("#graphic-card").val(),
-//                     description: $("#description").val(),
-//                     image: $("#image").val()
-//                 }, function(data) {
-//                     // move another page
-//                     var win = window.open();
-//                     win.document.write(data);
-// 						alert(data);
-//                 })
-//                     .done(
-//                                                         function() {
-//                                                             alert("성공!");
-//                                                             window.location
-//                                                                 .replace("${pageContext.request.contextPath}/home");
-//                                                         })
-//                                                     .fail(
-//                                                         function(jqXHR) {
-//                                                             alert("실패!");
-//                                                             alert("에러메시지" +
-//                                                                 jqXHR.responseText);
-//                                                         }).always(
-//                                                         function() {
-//                                                             // 					alert("항상!");
-//                                                         });
-//         });
         function readURL(input) {
         	  if (input.files && input.files[0]) {
         	    var reader = new FileReader();

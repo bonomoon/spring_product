@@ -77,10 +77,6 @@
 								<label for="student_number">전공</label> <input type="text"
 									class="form-control" id="major" name="major">
 							</div>
-<!-- 							<div class="form-group"> -->
-<!-- 								<label for="email">이메일</label> <input type="text" -->
-<!-- 									class="form-control" id="email" name="email"> -->
-<!-- 							</div> -->
 							<div class="form-group">
 								<label for="password">비밀번호</label> <input type="password"
 									class="form-control" id="password" name="password">
@@ -121,68 +117,65 @@
 	<script src="resources/js/owl.carousel.min.js"></script>
 	<script src="resources/js/front.js"></script>
 	<script type="text/javascript">
-	$(document).ready(function() {
-		
-		$.validator.addMethod("kor",  function( value, element ) {
-			return this.optional(element) ||  /^[가-힣]+$/.test(value);
-		}); 
-		
-		$.validator.addMethod("password",  function( value, element ) {
-			return this.optional(element) ||  /^.*(?=^.{6,15}$)(?=.*\d)(?=.*[a-zA-Z]).*$/.test(value);
-		}); 
-		
-		$("#form_user_edit").validate({
-			debug: true,
-			errorClass: "error",
-			highlight: function(element, errorClass) {
-		        $(element).fadeOut(function() {
-		            $(element).fadeIn();
-		        });
-		    },
-			rules: { 
-				name: { 
-					required: true,
-					maxlength: 4,
-					kor: true
-				},
-				major: {
-					required: true
-				},
-// 				email: {
-// 					required: true,
-// 					email: true
-// 				},
-				password: {
-					required: true,
-					password: true
-				}
-			},
-			messages: { 
-				name: {	
-					required: "필수 입력사항입니다.",
-					maxlength: "최대 {0}글자이하여야 합니다.",
-					kor: "자/모음만 있거나 영어가 있으면 안댐"
-				},
-				major: {
-					required: "필수 입력사항입니다."
-				},
-// 				email: {
-// 					required: "필수 입력사항입니다.",
-// 					email: "올바른 형식이 아닙니다."
-// 				},
-				password: {
-					required: "필수 입력사항입니다.",
-					password: "영/숫자 포함 6자 이상이어야 함"
-				}
-			},
-			errorClass: "validation-error"
-		});
-		
-		$("#edit-button").on('click', function() {
-			document.getElementById("form_user_edit").submit();
-		});
-	});
-</script>
+		$(document).ready(
+				function() {
+
+					$.validator.addMethod("kor",
+							function(value, element) {
+								return this.optional(element)
+										|| /^[가-힣]+$/.test(value);
+							});
+
+					$.validator.addMethod("password", function(value, element) {
+						return this.optional(element)
+								|| /^.*(?=^.{6,15}$)(?=.*\d)(?=.*[a-zA-Z]).*$/
+										.test(value);
+					});
+
+					$("#form_user_edit").validate({
+						debug : true,
+						errorClass : "error",
+						highlight : function(element, errorClass) {
+							$(element).fadeOut(function() {
+								$(element).fadeIn();
+							});
+						},
+						rules : {
+							name : {
+								required : true,
+								maxlength : 4,
+								kor : true
+							},
+							major : {
+								required : true
+							},
+							password : {
+								required : true,
+								password : true
+							}
+						},
+						messages : {
+							name : {
+								required : "필수 입력사항입니다.",
+								maxlength : "최대 {0}글자이하여야 합니다.",
+								kor : "자/모음만 있거나 영어가 있으면 안댐"
+							},
+							major : {
+								required : "필수 입력사항입니다."
+							},
+							password : {
+								required : "필수 입력사항입니다.",
+								password : "영/숫자 포함 6자 이상이어야 함"
+							}
+						},
+						errorClass : "validation-error"
+					});
+
+					$("#edit-button").on('click', function() {
+						document.getElementById("form_user_edit").submit();
+					});
+				});
+	</script>
 
 
 </body>

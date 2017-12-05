@@ -74,13 +74,6 @@
                                 <li>
                                     <a href="user_manage">회원 관리</a>
                                 </li>
-<!--                                 <li> -->
-<!--                                     <a href="contact.html">Contact page</a> -->
-<!--                                 </li> -->
-<!--                                 <li> -->
-<!--                                     <a href="faq.html">FAQ</a> -->
-<!--                                 </li> -->
-
                             </ul>
 
                         </div>
@@ -114,9 +107,7 @@
 											<td>${user.id}</td>
 											<td>${user.major}</td>
 											<td>${user.userName}</td>
-											<td>${user.email}</td>
-<%-- 											<td><a href="editUserAccount?id=${user.id}">Edit</a></td> --%>
-											<td>
+											<td>${user.email}</td>											<td>
 											<a href="unblockUser?id=${user.id}"><i class="fa fa-unlock"></i>/</a>
 											<a href="blockUser?id=${user.id}"><i class="fa fa-lock"></i></a>
 											</td>

@@ -45,7 +45,7 @@ public class BoardDaoImpl implements BoardDao {
 				.createQuery("update Board set hits = :board_hits" + " where id = :board_id");
 
 		int hit = Integer.parseInt(board.getHits()) + 1;
-		
+
 		query.setParameter("board_hits", String.valueOf(hit));
 		query.setParameter("board_id", board.getId());
 
@@ -64,17 +64,7 @@ public class BoardDaoImpl implements BoardDao {
 			session = sessionFactory.openSession();
 		}
 
-//		session.beginTransaction();
-//
-//		try {
-			session.save(board);
-//			session.getTransaction().commit();
-//		} catch (Exception e) {
-//			session.getTransaction().rollback();
-//			throw e;
-//		} finally {
-//			session.close();
-//		}
+		session.save(board);
 
 	}
 

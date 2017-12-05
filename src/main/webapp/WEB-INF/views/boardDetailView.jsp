@@ -90,12 +90,11 @@
 						</div>
 						<div class="box">
 							<div id="comments" data-animate="fadeInUp">
-								<h4>${fn:length(commentList)}개의댓글이있습니다.</h4>
+								<h4>${fn:length(commentList)}개의 댓글이 있습니다.</h4>
 								<c:forEach items="${commentList}" var="comment">
 									<div class="row comment">
 										<div class="col-sm-3 col-md-1 text-center-xs">
 											<p>
-												<!--                                         <img src="img/blog-avatar2.jpg" class="img-responsive img-circle" alt=""> -->
 											</p>
 										</div>
 										<div class="col-sm-9 col-md-11">
@@ -285,23 +284,8 @@
 						alert("로그인 후 댓글 작성이 가능합니다.");
 						window.location.replace("${pageContext.request.contextPath}/user_register");
 					} else if (data == "logged in") {
-						window.location.replace("${pageContext.request.contextPath}/board_detail?board_id=" + board_id);
-// 						$("#li-logout").removeClass('hidden');
-// 						$("#li-MyPage").removeClass('hidden');
-// 						$("#li-edit").removeClass('hidden');
-					}
-				// 			        alert( "\nStatus: " + status);
-				// 					alert("\nStatus: " + jqXHR.status);
-// 				}).done(function(data, status, jqXHR) {
-// 					window.location.replace("${pageContext.request.contextPath}/board_detail?board_id=" + board_id);
-// 					//  				window.location.replace("${pageContext.request.contextPath}/board");
-// 				}).fail(function(jqXHR) {
-// 					alert("로그인 후 댓글 작성이 가능합니다.");
-// 					window.location.replace("${pageContext.request.contextPath}/user_register");
-// 					// 					alert("실패!");
-// 					// 					alert("에러메시지" + jqXHR.responseText);
+						window.location.replace("${pageContext.request.contextPath}/board_detail?board_id=" + board_id);				
 				}).always(function() {
-				// 				 					alert("항상!");
 				});
 			});
 		});

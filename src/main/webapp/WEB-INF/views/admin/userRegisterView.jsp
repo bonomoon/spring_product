@@ -244,8 +244,6 @@
 					email : $("#email").val(),
 					password : $("#password").val(),
 				}, function(data, status, jqXHR) {
-// 							        alert( "\nStatus: " + status);
-// 							        alert( "\nStatus: " + jqXHR.status);
 				}).done(function() {
 					alert("성공!");
 					window.location.replace("${pageContext.request.contextPath}/home");
@@ -253,7 +251,6 @@
 					alert("실패!");
 					alert("에러메시지" + jqXHR.responseText);
 				}).always(function() {
-				// 					alert("항상!");
 				});
 			} else {
 			}
@@ -266,8 +263,6 @@
 				password : $("#login-password").val(),
 				rememberMe : $("#rememberMe-id").is(":checked"),
 			}, function(data, status, jqXHR) {
-			// 			        alert( "\nStatus: " + status);
-			// 			        alert( "\nStatus: " + jqXHR.status);
 			}).done(function() {
 				alert("성공!");
 				window.location.replace("${pageContext.request.contextPath}/home");
@@ -275,7 +270,6 @@
 				alert("실패!");
 				alert("에러메시지" + jqXHR.responseText);
 			}).always(function() {
-			// 					alert("항상!");
 			});
 		});
 	});

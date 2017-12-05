@@ -112,21 +112,23 @@
 										<li><a
 											href="${pageContext.request.contextPath}/home?cpu=others">기타</a></li>
 									</ul></li>
-										<li><a href="">그래픽카드</a>
+								<li><a href="">그래픽카드</a>
 									<ul>
-										<li><a href="${pageContext.request.contextPath}/home?graphic=amd">AMD</a></li>
-										<li><a href="${pageContext.request.contextPath}/home?graphic=엔비디아">엔비디아</a></li>
-										<li><a href="${pageContext.request.contextPath}/home?graphic=인텔">인텔</a></li>
+										<li><a
+											href="${pageContext.request.contextPath}/home?graphic=amd">AMD</a></li>
+										<li><a
+											href="${pageContext.request.contextPath}/home?graphic=엔비디아">엔비디아</a></li>
+										<li><a
+											href="${pageContext.request.contextPath}/home?graphic=인텔">인텔</a></li>
 
-							</ul>
-
+									</ul>
 						</div>
 					</div>
 
-					
+
 					<!-- *** MENUS AND FILTERS END *** -->
 
-					
+
 				</div>
 
 				<div class="col-md-9">
@@ -168,23 +170,7 @@
 
 							</div>
 
-							<!--                             <div class="row" id="thumbs"> -->
-							<!--                                 <div class="col-xs-4"> -->
-							<!--                                     <a href="resources/img/detailbig1.jpg" class="thumb"> -->
-							<!--                                         <img src="resources/img/detailsquare.jpg" alt="" class="img-responsive"> -->
-							<!--                                     </a> -->
-							<!--                                 </div> -->
-							<!--                                 <div class="col-xs-4"> -->
-							<!--                                     <a href="resources/img/detailbig2.jpg" class="thumb"> -->
-							<!--                                         <img src="resources/img/detailsquare2.jpg" alt="" class="img-responsive"> -->
-							<!--                                     </a> -->
-							<!--                                 </div> -->
-							<!--                                 <div class="col-xs-4"> -->
-							<!--                                     <a href="resources/img/detailbig3.jpg" class="thumb"> -->
-							<!--                                         <img src="resources/img/detailsquare3.jpg" alt="" class="img-responsive"> -->
-							<!--                                     </a> -->
-							<!--                                 </div> -->
-							<!--                             </div> -->
+
 						</div>
 
 					</div>
@@ -225,38 +211,23 @@
 						<p>${product.graphicCard}</p>
 						<h4>제품 설명</h4>
 						<p>${product.description}</p>
-						<!--                             <h4>Material & care</h4> -->
-						<!--                             <ul> -->
-						<!--                                 <li>Polyester</li> -->
-						<!--                                 <li>Machine wash</li> -->
-						<!--                             </ul> -->
-						<!--                             <h4>Size & Fit</h4> -->
-						<!--                             <ul> -->
-						<!--                                 <li>Regular fit</li> -->
-						<!--                                 <li>The model (height 5'8" and chest 33") is wearing a size S</li> -->
-						<!--                             </ul> -->
-
-						<!--                             <blockquote> -->
-						<!--                                 <p><em>Define style this season with Armani's new range of trendy tops, crafted with intricate details. Create a chic statement look by teaming this lace number with skinny jeans and pumps.</em> -->
-						<!--                                 </p> -->
-						<!--                             </blockquote> -->
 
 						<hr>
 					</div>
 
-					
-					
-					</div>
+
 
 				</div>
-				<!-- /.col-md-9 -->
-			</div>
-			<!-- /.container -->
-		</div>
-		<!-- /#content -->
 
-		<jsp:include page="_footer.jsp"></jsp:include>
-		<jsp:include page="_copyright.jsp"></jsp:include>
+			</div>
+			<!-- /.col-md-9 -->
+		</div>
+		<!-- /.container -->
+	</div>
+	<!-- /#content -->
+
+	<jsp:include page="_footer.jsp"></jsp:include>
+	<jsp:include page="_copyright.jsp"></jsp:include>
 
 	</div>
 	<!-- /#all -->

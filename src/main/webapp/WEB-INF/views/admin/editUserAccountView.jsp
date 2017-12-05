@@ -166,10 +166,6 @@
 				major: {
 					required: "필수 입력사항입니다."
 				},
-// 				email: {
-// 					required: "필수 입력사항입니다.",
-// 					email: "올바른 형식이 아닙니다."
-// 				},
 				password: {
 					required: "필수 입력사항입니다.",
 					password: "영/숫자 포함 6자 이상이어야 함"

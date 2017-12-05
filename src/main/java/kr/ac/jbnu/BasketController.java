@@ -27,23 +27,23 @@ import kr.ac.jbnu.util.MyUtils;
  */
 @Controller
 public class BasketController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(BasketController.class);
-	
-	@Autowired 
+
+	@Autowired
 	private CartDao cartDao;
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/basket", method = RequestMethod.GET)
-	public String basket(Locale locale, Model model,
-			HttpServletRequest request, HttpServletResponse response) {
+	public String basket(Locale locale, Model model, HttpServletRequest request, HttpServletResponse response) {
 		logger.info("BasketView!", locale);
-				
+
 		HttpSession session = request.getSession();
 		UserAccount loginedUser = MyUtils.getLoginedUser(session);
-		
-		if(loginedUser == null) {
+
+		if (loginedUser == null) {
 			return "redirect:/user_register";
 		} else {
 			String errorString = null;
@@ -51,35 +51,34 @@ public class BasketController {
 			List<Integer> cartidList = null;
 			productList = cartDao.queryCart(loginedUser.getId());
 			cartidList = cartDao.queryCartId(loginedUser.getId());
-			
+
 			model.addAttribute("errorString", errorString);
 			model.addAttribute("cartList", productList);
 			model.addAttribute("cartidList", cartidList);
-			
+
 			return "basketView";
 		}
 	}
-	
+
 	@RequestMapping(value = "/deleteCartProduct", method = RequestMethod.GET)
-	public String deleteCart(@RequestParam("cartid") String cartid,
-			Locale locale, Model model,
+	public String deleteCart(@RequestParam("cartid") String cartid, Locale locale, Model model,
 			HttpServletRequest request, HttpServletResponse response) {
-		logger.info("deleteCart", locale);		
-		
+		logger.info("deleteCart", locale);
+
 		cartDao.deleteCart(cartid);
-		
+
 		return "redirect:/basket";
 	}
-	
+
 	@RequestMapping(value = "/insertCartProduct", method = RequestMethod.POST)
-	public void insertCart(@RequestParam("product") String productCode,
-			Locale locale, Model modle, HttpServletRequest request) {
+	public void insertCart(@RequestParam("product") String productCode, Locale locale, Model modle,
+			HttpServletRequest request) {
 		logger.info("insertCart!! " + productCode, locale);
-		
+
 		HttpSession session = request.getSession();
 		UserAccount loginedUser = MyUtils.getLoginedUser(session);
-		
+
 		cartDao.insertCart(loginedUser.getId(), productCode);
 	}
-	
+
 }

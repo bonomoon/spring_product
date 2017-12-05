@@ -245,8 +245,6 @@
 					email : $("#email").val(),
 					password : $("#password").val(),
 				}, function(data, status, jqXHR) {
-// 							        alert( "\nStatus: " + status);
-// 							        alert( "\nStatus: " + jqXHR.status);
 				}).done(function() {
 					alert("성공!");
 					window.location.replace("${pageContext.request.contextPath}/home");
@@ -255,7 +253,6 @@
 						alert("본 이메일은 정지된 이메일입니다. 다른 이메일로 가입해주세요.")
 					}
 				}).always(function() {
-				// 					alert("항상!");
 				});
 			} else {
 			}
@@ -280,12 +277,9 @@
 	 				window.location.replace("${pageContext.request.contextPath}/home");
 				}
 			}).done(function() {
-// 				alert("성공!");
-// 				window.location.replace("${pageContext.request.contextPath}/home");
 			}).fail(function(jqXHR) {
 				alert("실패");
 			}).always(function() {
-			// 					alert("항상!");
 			});
 		});
 	});

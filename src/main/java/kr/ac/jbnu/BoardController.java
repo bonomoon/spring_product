@@ -108,8 +108,6 @@ public class BoardController {
 		board.setContents(contents);
 		board.setAuthor(author);
 		board.setHits("0");
-		// todo : hits를 숫자로 바꾸기
-
 		boardDao.insertBoard(board);
 	}
 
@@ -127,7 +125,6 @@ public class BoardController {
 		if (board == null) {
 			errorString = "해당 게시물을 찾을 수 없습니다.";
 			response.setStatus(response.SC_NOT_FOUND);
-			// return;
 		}
 
 		// 조회수 1증가
